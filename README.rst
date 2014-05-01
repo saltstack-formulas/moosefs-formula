@@ -17,41 +17,19 @@ Available states
 ``moosefs.master``
 -------
 
-Install tinc and related configuration. 
-
-Add your network name to /etc/tinc/nets.boot to start on system startup
-
-Example Pillar:
-
-.. code:: yaml
-
-    tinc:
-      replaceWithYourNetworkName:
-        replaceWithYourServerName:
-          RSAPublicKey: |
-            -----BEGIN RSA PUBLIC KEY-----
-            -----END RSA PUBLIC KEY-----
-          RSAPrivateKey: |
-            -----BEGIN RSA PRIVATE KEY-----
-            -----END RSA PRIVATE KEY-----
-          host_config:
-            Subnet: "192.168.xxx.xxx/xx"
-          tinc_config:
-            Name: "ifEmptyDefaultTo_replaceWithYourServerName"
-            ConnectTo: [ "server1", "server2", "server3" ]
-          tinc_up: |
-            ifconfig $INTERFACE 192.168.xxx.xxx netmask 255.255.255.0
-          tinc_down: |
-            ifconfig $INTERFACE down
+coming soon
 
 ``moosefs.metalogger``
 -------
 
-Also manage /etc/hosts for easy accessing.
+coming soon
 
-To allow multiple network to co-exist,it follow "hostname.netname" format
+``moosefs.chunk``
+-------
 
-Example: ::
+coming soon
 
-    192.168.xxx.xxx         replaceWithYourServerName.replaceWithYourNetworkName
+``moosefs.client``
+-------
 
+coming soon
