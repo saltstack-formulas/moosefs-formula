@@ -1,0 +1,12 @@
+{% set moosefs = salt['grains.filter_by']({
+    'Debian': {
+	'required_pkgs': [ 'zlib1g-dev' , 'python' , 'pkg-config' ],
+	'fs_pkg_url': 'http://moosefs.org/tl_files/mfscode/mfs-1.6.27-5.tar.gz',
+	'fs_pkg_folder' : 'mfs-1.6.27',
+    },
+    'RedHat': {
+	'required_pkgs' : [ 'make' , 'automake' , 'gcc' , 'gcc-c++' , 'kernel-devel' , 'zlib-devel' ],
+	'fs_pkg_url': 'http://moosefs.org/tl_files/mfscode/mfs-1.6.27-5.tar.gz',
+	'fs_pkg_folder' : 'mfs-1.6.27',
+    },
+}, merge=salt['pillar.get']('moosefs:lookup')) %}
