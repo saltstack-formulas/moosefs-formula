@@ -16,15 +16,19 @@ Available states
 
 ``moosefs.master``
 -------
+coming soon
 
 
 ``moosefs.metalogger``
 -------
+coming soon
 
 
 ``moosefs.chunk``
 -------
+coming soon
 
 
 ``moosefs.client``
 -------
+coming soon
