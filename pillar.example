@@ -41,3 +41,21 @@ mfsmaster_config:
   - ACCEPTABLE_DIFFERENCE: 0.1
   - SESSION_SUSTAIN_TIME: 86400
   - REJECT_OLD_CLIENTS: 0
+mfschunkserver:
+  - MASTER_HOST: mfsmaster
+  - HDD_CONF_FILENAME: /etc/moosefs/mfs/mfshdd.cfg
+  - WORKING_USER: mfs
+  - WORKING_GROUP: mfs
+  - SYSLOG_IDENT: mfschunkserver
+  - LOCK_MEMORY: 0
+  - NICE_LEVEL: -19
+  - DATA_PATH: /var/lib/mfs
+  - MASTER_RECONNECTION_DELAY: 5
+  - BIND_HOST: *
+  - MASTER_PORT: 9420
+  - MASTER_TIMEOUT: 60
+  - CSSERV_LISTEN_HOST: *
+  - CSSERV_LISTEN_PORT: 9422
+  - HDD_TEST_FREQ: 10
+mfshdd:
+  - folder: [ '/mnt/mfschunks1' , '/mnt/mfschunk2' ]
