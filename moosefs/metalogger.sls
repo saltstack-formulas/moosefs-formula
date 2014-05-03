@@ -21,7 +21,7 @@ Install_Metalogger:
     - shell: /bin/bash
     - timeout: 600
     - user: root
-    - unless: test -x /usr/sbin/mfsmetalogger && test $(/usr/sbin/mfsmetalogger -v | cut -d ':' -f 2 | tr -d ' ' ) = ${ {{ fs_pkg_url }}##*/ } | cut -d "-" -f 2
+    - unless: fs_pkg_url={{ fs_pkg_url }};test -x /usr/sbin/mfsmetalogger && test $(/usr/sbin/mfsmetalogger -v | cut -d ':' -f 2 | tr -d ' ' ) = ${fs_pkg_url##*/} | cut -d '-' -f 2
 
 /etc/init.d/mfsmetalogger:
   file.managed:

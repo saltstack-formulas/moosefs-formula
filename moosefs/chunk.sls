@@ -22,5 +22,5 @@ Install_Chunk:
     - shell: /bin/bash
     - timeout: 600
     - user: root
-    - unless: test -x /usr/sbin/mfschunkserver && test $(/usr/sbin/mfschunkserver -v | cut -d ':' -f 2 | tr -d ' ' ) = ${ {{ fs_pkg_url }}##*/ } | cut -d "-" -f 2
+    - unless: fs_pkg_url={{ fs_pkg_url }};test -x /usr/sbin/mfschunkserver && test $(/usr/sbin/mfschunkserver -v | cut -d ':' -f 2 | tr -d ' ' ) = ${fs_pkg_url##*/} | cut -d '-' -f 2
 

@@ -22,4 +22,4 @@ Install_Chunk:
     - shell: /bin/bash
     - timeout: 600
     - user: root
-    - unless: test -x /usr/bin/mfsmount && test $(/usr/bin/mfsmount --version 2>&1 > /dev/null | grep 'MFS version' | cut -d ' ' -f 3 | tr -d ' ' ) = ${ {{ fs_pkg_url }}##*/ } | cut -d "-" -f 2
+    - unless: fs_pkg_url={{ fs_pkg_url }};test -x /usr/bin/mfsmount && test $(/usr/bin/mfsmount --version 2>&1 > /dev/null | grep 'MFS version' | cut -d ' ' -f 3 | tr -d ' ' ) = ${fs_pkg_url##*/} | cut -d '-' -f 2
