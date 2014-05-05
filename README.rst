@@ -31,19 +31,18 @@ Install mfschunkserver and configure.
 
 .. code:: yaml
 
-mfschunkserver_config:
-  MASTER_HOST: "mfsmaster"
-  MASTER_PORT: 9420
-  MASTER_TIMEOUT: 60
-  HDD_CONF_FILENAME: "/etc/moosefs/mfs/mfshdd.cfg"
-  WORKING_USER: "mfs"
-  WORKING_GROUP: "mfs"
-  BIND_HOST: "*"
-  DATA_PATH: "/var/lib/mfs"
-mfshdd_config:
-  - '/mnt/mfschunks1'
-  - '/mnt/mfschunks2'
-
+    mfschunkserver_config:
+      MASTER_HOST: "mfsmaster"
+      MASTER_PORT: 9420
+      MASTER_TIMEOUT: 60
+      HDD_CONF_FILENAME: "/etc/moosefs/mfs/mfshdd.cfg"
+      WORKING_USER: "mfs"
+      WORKING_GROUP: "mfs"
+      BIND_HOST: "*"
+      DATA_PATH: "/var/lib/mfs"
+    mfshdd_config:
+      - '/mnt/mfschunks1'
+      - '/mnt/mfschunks2'
 
 ``moosefs.client``
 -------
