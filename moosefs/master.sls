@@ -78,7 +78,7 @@ Install_Master:
     - context:
       mfsmaster_config: {{ pillar.get('mfsmaster_config', {})|json }}
 
-/etc/moosefs/mfsexports.cfg:
+/etc/moosefs/mfs/mfsexports.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsexports.tmpl
     - user: root
@@ -86,9 +86,9 @@ Install_Master:
     - mode: 755
     - template: 'jinja'
     - context:
+      mfsexports_config: {{ pillar.get('mfsexports_config', {})|json }}
 
-
-/etc/moosefs/mfsmetalogger.cfg:
+/etc/moosefs/mfs/mfsmetalogger.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsmetalogger.tmpl
     - user: root
@@ -98,7 +98,7 @@ Install_Master:
     - context:
       mfsmetalogger_config: {{ pillar.get('mfsmetalogger_config', {})|json }}
 
-/etc/moosefs/mfstopology.cfg:
+/etc/moosefs/mfs/mfstopology.cfg:
   file.managed:
     - source: salt://moosefs/template/mfstopology.tmpl
     - user: root
@@ -106,7 +106,7 @@ Install_Master:
     - mode: 755
     - template: 'jinja'
     - context:
-
+      mfstopology_config: {{ pillar.get('mfstopology_config')|json }}
 
 /var/lib/mfs/metadata.mfs:
   file.managed:

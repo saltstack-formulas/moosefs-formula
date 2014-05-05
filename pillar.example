@@ -41,8 +41,11 @@ mfsmaster_config:
   ACCEPTABLE_DIFFERENCE: 0.1
   SESSION_SUSTAIN_TIME: 86400
   REJECT_OLD_CLIENTS: 0
-
-
+mfstopology_config: |
+  192.168.1.0/24                1
+mfsexports_config: |
+  *                       /       rw,alldirs,maproot=0
+  *                       .       rw
 mfschunkserver_config:
   MASTER_HOST: "mfsmaster"
   HDD_CONF_FILENAME: "/etc/moosefs/mfs/mfshdd.cfg"

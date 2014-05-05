@@ -1,8 +1,12 @@
+# Managed by saltstack
+
+{{ mfsexports_config }}
+
 # Allow everything but "meta".
-*			/	rw,alldirs,maproot=0
+#*			/	rw,alldirs,maproot=0
 
 # Allow "meta".
-*			.	rw
+#*			.	rw
 
 # Line format:
 #  [ip range] [path] [options]
