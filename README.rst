@@ -17,7 +17,35 @@ Available states
 ``moosefs.master``
 -------
 
-coming soon
+Install mfsmaster and mfsmetalogger and configure
+
+.. code:: yaml
+
+    mfsmetalogger_config:
+      MASTER_HOST: "mfsmaster"
+      MASTER_PORT: 9419
+      MASTER_TIMEOUT: 60
+      WORKING_USER: "mfs"
+      WORKING_GROUP: "mfs"
+      SYSLOG_IDENT: "mfsmetalogger"
+    mfsmaster_config:
+      MATOML_LISTEN_HOST: "*"
+      MATOML_LISTEN_PORT: 9419
+      MATOML_LOG_PRESERVE_SECONDS: 600
+      MATOCS_LISTEN_HOST: "*"
+      MATOCS_LISTEN_PORT: 9420
+      MATOCL_LISTEN_HOST: "*"
+      MATOCL_LISTEN_PORT: 9421
+      WORKING_USER: "mfs"
+      WORKING_GROUP: "mfs"
+      SYSLOG_IDENT: "mfsmaster"
+      DATA_PATH: "/var/lib/mfs"
+    mfstopology_config: |
+      192.168.1.0/24                1
+    mfsexports_config: |
+      *                       /       rw,alldirs,maproot=0
+      *                       .       rw
+
 
 ``moosefs.metalogger``
 -------
