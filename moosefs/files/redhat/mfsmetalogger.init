@@ -7,10 +7,10 @@
 # description: MooseFS metalogger
 #
 # processname: mfsmetalogger
-# config: @sysconfdir@/mfsmetalogger.cfg
+# config: /etc/moosefs/mfsmetalogger.cfg
 
 # Source function library.
-. @initddir@/functions
+. /etc/init.d/functions
 
 # Source networking configuration.
 . /etc/sysconfig/network
@@ -20,7 +20,7 @@
 
 # Check that networking is up.
 [ "${NETWORKING}" == "no" ] && exit 0
-[ -x "@sbindir@/mfsmetalogger" ] || exit 1
+[ -x "/usr/sbin/mfsmetalogger" ] || exit 1
 
 RETVAL=0
 prog="mfsmetalogger"

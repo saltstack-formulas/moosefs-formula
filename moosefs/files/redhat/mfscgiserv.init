@@ -9,7 +9,7 @@
 # processname: mfscgiserv
 
 # Source function library.
-. @initddir@/functions
+. /etc/init.d/functions
 
 # Source networking configuration.
 . /etc/sysconfig/network
@@ -21,7 +21,7 @@ MFSCGISERV_USER=nobody
 
 # Check that networking is up.
 [ "${NETWORKING}" == "no" ] && exit 0
-[ -x "@sbindir@/mfscgiserv" ] || exit 1
+[ -x "/usr/sbin/mfscgiserv" ] || exit 1
 
 RETVAL=0
 prog="mfscgiserv"

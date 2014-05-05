@@ -38,6 +38,8 @@ Install_Master:
     - running
     - name: mfsmaster
     - enable: True
+    - require:
+      - file: /etc/init.d/mfsmaster
     - watch:
       - file: /etc/moosefs/mfs/mfsmaster.cfg
       - file: /etc/moosefs/mfsexports.cfg
@@ -58,6 +60,8 @@ Install_Master:
     - running
     - name: mfscgiserv
     - enable: True
+    - require:
+      - file: /etc/init.d/mfscgiserv
     - watch:
       - file: /etc/moosefs/mfs/mfsmaster.cfg
       - file: /etc/moosefs/mfsexports.cfg
@@ -80,6 +84,9 @@ Install_Master:
     - user: root
     - group: root
     - mode: 755
+    - template: 'jinja'
+    - context:
+
 
 /etc/moosefs/mfsmetalogger.cfg:
   file.managed:
@@ -97,6 +104,9 @@ Install_Master:
     - user: root
     - group: root
     - mode: 755
+    - template: 'jinja'
+    - context:
+
 
 /var/lib/mfs/metadata.mfs:
   file.managed:

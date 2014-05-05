@@ -24,6 +24,26 @@ Install_Chunk:
     - user: root
     - unless: fs_pkg_url={{ fs_pkg_url }};test -x /usr/sbin/mfschunkserver && test $(/usr/sbin/mfschunkserver -v | cut -d ':' -f 2 | tr -d ' ' ) = ${fs_pkg_url##*/} | cut -d '-' -f 2
 
+/etc/init.d/mfschunkserver:
+  file.managed:
+{% if grains['os_family'] == 'RedHat' %}
+    - source: salt://moosefs/files/redhat/mfschunkserver.init
+{% elif grains['os_family'] == 'Debian' %}
+    - source: salt://moosefs/files/debian/mfschunkserver.init
+{% endif %}
+    - user: root
+    - group: root
+    - mode: 755
+
+Start_Chunk:
+  service:
+    - running
+    - name: mfschunkserver
+    - enable: True
+    - watch:
+      - file: /etc/moosefs/mfs/mfschunkserver.cfg
+      - file: /etc/moosefs/mfs/mfshdd.cfg
+
 /etc/moosefs/mfs/mfschunkserver.cfg:
   file.managed:
     - source: salt://moosefs/template/mfschunkserver.tmpl
@@ -32,6 +52,7 @@ Install_Chunk:
     - mode: 755
     - template: 'jinja'
     - context:
+      mfschunkserver_config: {{ pillar.get('mfschunkserver_config', {})|json }}
 
 /etc/moosefs/mfs/mfshdd.cfg:
   file.managed:
@@ -41,4 +62,17 @@ Install_Chunk:
     - mode: 755
     - template: 'jinja'
     - context:
+      mfshdd_config: {{ pillar.get('mfshdd_config', {})|json }}
+
+{% for mount_point in pillar.get('mfshdd_config', {}) %}
+{{ mount_point }}:
+  file.directory:
+    - user: mfs
+    - group: mfs
+    - mode: 744
+    - makedirs: True
+    - recurse:
+      - user
+      - group
+{% endfor %}
 

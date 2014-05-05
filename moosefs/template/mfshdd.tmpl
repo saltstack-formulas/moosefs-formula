@@ -3,3 +3,7 @@
 #/mnt/hd1
 #/mnt/hd2
 #etc.
+
+{% for mount_point in mfshdd_config %}
+{{ mount_point }}
+{% endfor %}

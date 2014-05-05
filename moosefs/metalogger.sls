@@ -33,6 +33,14 @@ Install_Metalogger:
     - user: root
     - group: root
     - mode: 755
+  service:
+    - running
+    - name: mfsmetalogger
+    - enable: True
+    - require:
+      - file: /etc/init.d/mfsmetalogger
+    - watch:
+      - file: /etc/moosefs/mfsmetalogger.cfg
 
 /etc/moosefs/mfsmetalogger.cfg:
   file.managed:
@@ -40,4 +48,6 @@ Install_Metalogger:
     - user: root
     - group: root
     - mode: 755
-
+    - template: 'jinja'
+    - context:
+      mfsmetalogger_config: {{ pillar.get('mfsmetalogger_config', {})|json }}
