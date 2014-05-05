@@ -21,13 +21,6 @@ Install mfsmaster and mfsmetalogger and configure
 
 .. code:: yaml
 
-    mfsmetalogger_config:
-      MASTER_HOST: "mfsmaster"
-      MASTER_PORT: 9419
-      MASTER_TIMEOUT: 60
-      WORKING_USER: "mfs"
-      WORKING_GROUP: "mfs"
-      SYSLOG_IDENT: "mfsmetalogger"
     mfsmaster_config:
       MATOML_LISTEN_HOST: "*"
       MATOML_LISTEN_PORT: 9419
@@ -40,6 +33,13 @@ Install mfsmaster and mfsmetalogger and configure
       WORKING_GROUP: "mfs"
       SYSLOG_IDENT: "mfsmaster"
       DATA_PATH: "/var/lib/mfs"
+    mfsmetalogger_config:
+      MASTER_HOST: "mfsmaster"
+      MASTER_PORT: 9419
+      MASTER_TIMEOUT: 60
+      WORKING_USER: "mfs"
+      WORKING_GROUP: "mfs"
+      SYSLOG_IDENT: "mfsmetalogger"
     mfstopology_config: |
       192.168.1.0/24                1
     mfsexports_config: |
