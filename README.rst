@@ -50,12 +50,30 @@ Install mfsmaster and mfsmetalogger and configure
 ``moosefs.metalogger``
 -------
 
-coming soon
+Install mfsmetalogger and config.
+
+.. code:: yaml
+
+    mfsmetalogger_config:
+      MASTER_HOST: "mfsmaster"
+      MASTER_PORT: 9419
+      MASTER_TIMEOUT: 60
+      WORKING_USER: "mfs"
+      WORKING_GROUP: "mfs"
+      SYSLOG_IDENT: "mfsmetalogger"
+      LOCK_MEMORY: 0
+      NICE_LEVEL: -19
+      DATA_PATH: "/var/lib/mfs"
+      BACK_LOGS: 50
+      BACK_META_KEEP_PREVIOUS: 3
+      META_DOWNLOAD_FREQ: 24
+      MASTER_RECONNECTION_DELAY: 5
+
 
 ``moosefs.chunk``
 -------
 
-Install mfschunkserver and configure.
+Install mfschunkserver and config.
 
 .. code:: yaml
 
