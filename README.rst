@@ -30,6 +30,7 @@ coming soon
 Install mfschunkserver and configure.
 
 .. code:: yaml
+
 mfschunkserver_config:
   MASTER_HOST: "mfsmaster"
   MASTER_PORT: 9420
