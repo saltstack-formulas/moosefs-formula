@@ -7,7 +7,7 @@
 # description: MooseFS chunkserver
 #
 # processname: mfschunkserver
-# config: /etc/moosefs/mfschunkserver.cfg
+# config: /etc/mfs/mfschunkserver.cfg
 
 # Source function library.
 . /etc/init.d/functions
@@ -21,7 +21,7 @@
 # Check that networking is up.
 [ "${NETWORKING}" == "no" ] && exit 0
 [ -x "/usr/sbin/mfschunkserver" ] || exit 1
-[ -r "/etc/moosefs/mfs/mfshdd.cfg" -o -r "/etc/moosefs/mfshdd.cfg" ] || exit 1
+[ -r "/etc/mfs/mfshdd.cfg" -o -r "/etc/mfshdd.cfg" ] || exit 1
 
 RETVAL=0
 prog="mfschunkserver"

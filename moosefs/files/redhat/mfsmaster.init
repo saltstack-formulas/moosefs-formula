@@ -7,7 +7,7 @@
 # description: MooseFS master
 #
 # processname: mfsmaster
-# config: /etc/moosefs/mfsmaster.cfg
+# config: /etc/mfs/mfsmaster.cfg
 
 # Source function library.
 . /etc/init.d/functions
@@ -21,7 +21,7 @@
 # Check that networking is up.
 [ "${NETWORKING}" == "no" ] && exit 0
 [ -x "/usr/sbin/mfsmaster" ] || exit 1
-[ -r "/etc/moosefs/mfs/mfsexports.cfg" -o -r "/etc/moosefs/mfsexports.cfg" ] || exit 1
+[ -r "/etc/mfs/mfsexports.cfg" -o -r "/etc/mfsexports.cfg" ] || exit 1
 
 RETVAL=0
 prog="mfsmaster"

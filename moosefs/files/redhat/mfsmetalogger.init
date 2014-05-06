@@ -7,7 +7,7 @@
 # description: MooseFS metalogger
 #
 # processname: mfsmetalogger
-# config: /etc/moosefs/mfsmetalogger.cfg
+# config: /etc/mfs/mfsmetalogger.cfg
 
 # Source function library.
 . /etc/init.d/functions
