@@ -93,4 +93,34 @@ Install mfschunkserver and config.
 ``moosefs.client``
 -------
 
-coming soon
+Install mfsmount and config
+
+mfssugidclearmode have the following option ( "NEVER" , "ALWAYS" , "OSX" , "BSD" , "EXT" , "XFS" )
+
+mfscachemode have the following option ( True / "YES" / "ALWAYS" , False / "NO" / "NONE" / "NEVER" , "AUTO" )
+
+.. code:: yaml
+
+    mfsmount_config:
+      mfsmaster: "HOST"
+      mfsport: 9420
+      mfsbind: "*"
+      mfssubfolder: "/some/folder"
+      mfspassword: ""
+      mfsmd5pass: "MD5"
+      mfsdelayedinit: True
+      mfsdebug: True
+      mfsmeta: True
+      mfsdonotrememberpassword: True
+      mfsmkdircopysgid: 1
+      mfssugidclearmode: "ALWAYS"
+      mfscachemode: True
+      mfsattrcacheto: 300
+      mfsentrycacheto: 300
+      mfsdirentrycacheto: 300
+      mfsrlimitnofile: 1
+      mfsnice: -19
+      mfswritecachesize: 1
+      mfsioretries: 2
+      mount_point: [ '/mnt/moose' , '/media/test' ]
+
