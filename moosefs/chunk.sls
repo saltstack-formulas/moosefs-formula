@@ -14,7 +14,7 @@ Install_Chunk:
         wget -c $fs_pkg_url
         tar -xzvf ${fs_pkg_url##*/}
         cd mfs-$(echo ${fs_pkg_url##*/} | cut -d '-' -f 2)
-        ./configure --prefix=/usr --sysconfdir=/etc/moosefs --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfsmaster 
+        ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfsmaster 
         make
         make install
         make clean
@@ -41,28 +41,24 @@ Start_Chunk:
     - name: mfschunkserver
     - enable: True
     - watch:
-      - file: /etc/moosefs/mfs/mfschunkserver.cfg
-      - file: /etc/moosefs/mfs/mfshdd.cfg
+      - file: /etc/mfs/mfschunkserver.cfg
+      - file: /etc/mfs/mfshdd.cfg
 
-/etc/moosefs/mfs/mfschunkserver.cfg:
+/etc/mfs/mfschunkserver.cfg:
   file.managed:
     - source: salt://moosefs/template/mfschunkserver.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfschunkserver_config: {{ pillar.get('mfschunkserver_config', {})|json }}
 
-/etc/moosefs/mfs/mfshdd.cfg:
+/etc/mfs/mfshdd.cfg:
   file.managed:
     - source: salt://moosefs/template/mfshdd.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfshdd_config: {{ pillar.get('mfshdd_config', {})|json }}
 
 {% for mount_point in pillar.get('mfshdd_config', {}) %}
 {{ mount_point }}:

@@ -1,6 +1,8 @@
 # Managed by saltstack
 
-{{ mfstopology_config }}
+{% if pillar.get('mfstopology_config') is defined and pillar.get('mfstopology_config') is not none %}
+{{ pillar.get('mfstopology_config') }}
+{% endif %}
 
 # Server groups can be specified per line with full ip addresses or with
 # netmasks in the following manner:

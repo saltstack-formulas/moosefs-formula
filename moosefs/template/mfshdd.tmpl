@@ -1,6 +1,6 @@
 # Managed by saltstack
 
-{% for mount_point in mfshdd_config %}
+{% for mount_point in pillar.get('mfshdd_config', {}) %}
 {{ mount_point }}
 {% endfor %}
 

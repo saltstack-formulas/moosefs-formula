@@ -62,8 +62,28 @@ mfschunkserver_config:
   CSSERV_LISTEN_HOST: "*"
   CSSERV_LISTEN_PORT: 9422
   HDD_TEST_FREQ: 10
-
-
 mfshdd_config:
   - '/mnt/mfschunks1'
   - '/mnt/mfschunks2'
+mfsmount_config:
+  mfsmaster: "HOST"
+  mfsport: 9420
+  mfsbind: "*"
+  mfssubfolder: "/some/folder"
+  mfspassword: ""
+  mfsmd5pass: "MD5"
+  mfsdelayedinit: True
+  mfsdebug: True
+  mfsmeta: True
+  mfsdonotrememberpassword: True
+  mfsmkdircopysgid: 1
+  mfssugidclearmode: "NEVER","ALWAYS","OSX","BSD","EXT","XFS"
+  mfscachemode: "True,YES,ALWAYS","False,NO,NONE,NEVER","AUTO"
+  mfsattrcacheto: 300
+  mfsentrycacheto: 300
+  mfsdirentrycacheto: 300
+  mfsrlimitnofile: 1
+  mfsnice: -19
+  mfswritecachesize: 1
+  mfsioretries: 2
+  mount_point: [ '/mnt/moose' , '/media/test' ]

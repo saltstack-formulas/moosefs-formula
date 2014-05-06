@@ -13,7 +13,7 @@ Install_Metalogger:
         wget -c $fs_pkg_url
         tar -xzvf ${fs_pkg_url##*/}
         cd mfs-$(echo ${fs_pkg_url##*/} | cut -d '-' -f 2)
-        ./configure --prefix=/usr --sysconfdir=/etc/moosefs --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount
+        ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount
         make
         make install
         make clean
@@ -40,14 +40,12 @@ Install_Metalogger:
     - require:
       - file: /etc/init.d/mfsmetalogger
     - watch:
-      - file: /etc/moosefs/mfsmetalogger.cfg
+      - file: /etc/mfsmetalogger.cfg
 
-/etc/moosefs/mfsmetalogger.cfg:
+/etc/mfs/mfsmetalogger.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsmetalogger.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfsmetalogger_config: {{ pillar.get('mfsmetalogger_config', {})|json }}

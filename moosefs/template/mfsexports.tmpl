@@ -1,6 +1,11 @@
 # Managed by saltstack
 
-{{ mfsexports_config }}
+{% if pillar.get('mfsexports_config') is defined and pillar.get('mfsexports_config') is not none %}
+{{ pillar.get('mfsexports_config') }}
+{% else %}
+*                      /       rw,alldirs,maproot=0
+*                      .       rw
+{% endif %}
 
 # Allow everything but "meta".
 #*			/	rw,alldirs,maproot=0

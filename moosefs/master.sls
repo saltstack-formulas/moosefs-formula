@@ -14,7 +14,7 @@ Install_Master:
         wget -c $fs_pkg_url
         tar -xzvf ${fs_pkg_url##*/}
         cd mfs-$(echo ${fs_pkg_url##*/} | cut -d '-' -f 2)
-        ./configure --prefix=/usr --sysconfdir=/etc/moosefs --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount 
+        ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount 
         make
         make install
         make clean
@@ -41,10 +41,10 @@ Install_Master:
     - require:
       - file: /etc/init.d/mfsmaster
     - watch:
-      - file: /etc/moosefs/mfs/mfsmaster.cfg
-      - file: /etc/moosefs/mfsexports.cfg
-      - file: /etc/moosefs/mfsmetalogger.cfg
-      - file: /etc/moosefs/mfstopology.cfg
+      - file: /etc/mfs/mfsmaster.cfg
+      - file: /etc/mfsexports.cfg
+      - file: /etc/mfsmetalogger.cfg
+      - file: /etc/mfstopology.cfg
      
 /etc/init.d/mfscgiserv:
   file.managed:
@@ -63,50 +63,42 @@ Install_Master:
     - require:
       - file: /etc/init.d/mfscgiserv
     - watch:
-      - file: /etc/moosefs/mfs/mfsmaster.cfg
-      - file: /etc/moosefs/mfsexports.cfg
-      - file: /etc/moosefs/mfsmetalogger.cfg
-      - file: /etc/moosefs/mfstopology.cfg
+      - file: /etc/mfs/mfsmaster.cfg
+      - file: /etc/mfsexports.cfg
+      - file: /etc/mfsmetalogger.cfg
+      - file: /etc/mfstopology.cfg
 
-/etc/moosefs/mfs/mfsmaster.cfg:
+/etc/mfs/mfsmaster.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsmaster.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfsmaster_config: {{ pillar.get('mfsmaster_config', {})|json }}
 
-/etc/moosefs/mfs/mfsexports.cfg:
+/etc/mfs/mfsexports.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsexports.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfsexports_config: {{ pillar.get('mfsexports_config', {})|json }}
 
-/etc/moosefs/mfs/mfsmetalogger.cfg:
+/etc/mfs/mfsmetalogger.cfg:
   file.managed:
     - source: salt://moosefs/template/mfsmetalogger.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfsmetalogger_config: {{ pillar.get('mfsmetalogger_config', {})|json }}
 
-/etc/moosefs/mfs/mfstopology.cfg:
+/etc/mfs/mfstopology.cfg:
   file.managed:
     - source: salt://moosefs/template/mfstopology.tmpl
     - user: root
     - group: root
     - mode: 755
     - template: 'jinja'
-    - context:
-      mfstopology_config: {{ pillar.get('mfstopology_config')|json }}
 
 /var/lib/mfs/metadata.mfs:
   file.managed:
