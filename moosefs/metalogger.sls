@@ -40,7 +40,7 @@ Install_Metalogger:
     - require:
       - file: /etc/init.d/mfsmetalogger
     - watch:
-      - file: /etc/mfsmetalogger.cfg
+      - file: /etc/mfs/mfsmetalogger.cfg
 
 /etc/mfs/mfsmetalogger.cfg:
   file.managed:

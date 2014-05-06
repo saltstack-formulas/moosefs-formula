@@ -64,9 +64,9 @@ Install_Master:
       - file: /etc/init.d/mfscgiserv
     - watch:
       - file: /etc/mfs/mfsmaster.cfg
-      - file: /etc/mfsexports.cfg
-      - file: /etc/mfsmetalogger.cfg
-      - file: /etc/mfstopology.cfg
+      - file: /etc/mfs/mfsexports.cfg
+      - file: /etc/mfs/mfsmetalogger.cfg
+      - file: /etc/mfs/mfstopology.cfg
 
 /etc/mfs/mfsmaster.cfg:
   file.managed:
@@ -92,6 +92,7 @@ Install_Master:
     - mode: 755
     - template: 'jinja'
 
+{% if pillar.get('mfstopology_config') is defined and pillar.get('mfstopology_config') is not none %}
 /etc/mfs/mfstopology.cfg:
   file.managed:
     - source: salt://moosefs/template/mfstopology.tmpl
@@ -99,6 +100,7 @@ Install_Master:
     - group: root
     - mode: 755
     - template: 'jinja'
+{% endif %}
 
 /var/lib/mfs/metadata.mfs:
   file.managed:

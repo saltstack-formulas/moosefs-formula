@@ -16,7 +16,7 @@ mfs-group:
 mfs:
   user.present:
     - name: mfs
-    - fullname: LizardFS
+    - fullname: MooseFS
     - home: /home/mfs
     - createhome: True
     - groups:
