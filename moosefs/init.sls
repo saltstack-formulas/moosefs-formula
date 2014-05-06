@@ -1,6 +1,5 @@
 {% from "moosefs/map.jinja" import moosefs with context %}
 
-
 build_essestial:
   pkg.installed:
     - pkgs:
@@ -16,7 +15,7 @@ mfs-group:
 mfs:
   user.present:
     - name: mfs
-    - fullname: LizardFS
+    - fullname: mooseFS
     - home: /home/mfs
     - createhome: True
     - groups:

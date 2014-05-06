@@ -1,6 +1,5 @@
 {% from "moosefs/map.jinja" import moosefs with context %}
 
-{% set fs_version = "1.6.27" %}
 {% set fs_pkg_url = "http://moosefs.org/tl_files/mfscode/mfs-1.6.27-5.tar.gz" %}
 
 include:
