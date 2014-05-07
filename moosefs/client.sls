@@ -6,7 +6,7 @@
 include:
   - moosefs
 
-Install_Chunk:
+Install_Client:
   cmd.run:
     - name: |
         fs_pkg_url={{ fs_pkg_url }}
