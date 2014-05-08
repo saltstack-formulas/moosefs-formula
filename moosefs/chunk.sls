@@ -1,6 +1,5 @@
 {% from "moosefs/map.jinja" import moosefs with context %}
 
-{% set fs_version = "1.6.27" %}
 {% set fs_pkg_url = "http://moosefs.org/tl_files/mfscode/mfs-1.6.27-5.tar.gz" %}
 
 include:
@@ -18,6 +17,9 @@ Install_Chunk:
         make
         make install
         make clean
+        rm -f /etc/mfs/*.dist
+        rm -f /var/lib/mfs/metadata.mfs.empty
+        rm -Rf /usr/src/${fs_pkg_url##*/} mfs-$(echo ${fs_pkg_url##*/} | cut -d '-' -f 2)
     - cwd: /usr/src/
     - shell: /bin/bash
     - timeout: 600

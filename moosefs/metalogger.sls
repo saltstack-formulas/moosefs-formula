@@ -17,6 +17,9 @@ Install_Metalogger:
         make
         make install
         make clean
+        rm -f /etc/mfs/*.dist
+        rm -f /var/lib/mfs/metadata.mfs.empty
+        rm -Rf /usr/src/${fs_pkg_url##*/} mfs-$(echo ${fs_pkg_url##*/} | cut -d '-' -f 2)
     - cwd: /usr/src/
     - shell: /bin/bash
     - timeout: 600
