@@ -34,3 +34,11 @@ Install_Client:
     - mode: 700
     - template: 'jinja'
 
+{% for mount_point in salt['pillar.get']('mfsmount_config:mount_point', {}) %}
+{{ mount_point }}:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 777
+    - makedirs: True
+{% endfor %}
