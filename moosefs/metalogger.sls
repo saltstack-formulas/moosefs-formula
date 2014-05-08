@@ -36,6 +36,8 @@ Install_Metalogger:
     - user: root
     - group: root
     - mode: 755
+
+Run_mfsmetalogger:
   service:
     - running
     - name: mfsmetalogger

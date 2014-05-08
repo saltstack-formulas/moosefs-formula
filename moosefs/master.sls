@@ -36,6 +36,8 @@ Install_Master:
     - user: root
     - group: root
     - mode: 755
+
+Run_mfsmaster:
   service:
     - running
     - name: mfsmaster
@@ -44,9 +46,11 @@ Install_Master:
       - file: /etc/init.d/mfsmaster
     - watch:
       - file: /etc/mfs/mfsmaster.cfg
-      - file: /etc/mfsexports.cfg
-      - file: /etc/mfsmetalogger.cfg
-      - file: /etc/mfstopology.cfg
+      - file: /etc/mfs/mfsexports.cfg
+      - file: /etc/mfs/mfsmetalogger.cfg
+      {% if pillar.get('mfstopology_config') is defined and pillar.get('mfstopology_config') is not none %}
+      - file: /etc/mfs/mfstopology.cfg
+      {% endif %}
      
 /etc/init.d/mfscgiserv:
   file.managed:
@@ -57,7 +61,9 @@ Install_Master:
 {% endif %}
     - user: root
     - group: root
-    - mode: 755 
+    - mode: 755
+
+Run_mfscgiserv:
   service:
     - running
     - name: mfscgiserv
@@ -68,7 +74,9 @@ Install_Master:
       - file: /etc/mfs/mfsmaster.cfg
       - file: /etc/mfs/mfsexports.cfg
       - file: /etc/mfs/mfsmetalogger.cfg
+      {% if pillar.get('mfstopology_config') is defined and pillar.get('mfstopology_config') is not none %}
       - file: /etc/mfs/mfstopology.cfg
+      {% endif %}
 
 /etc/mfs/mfsmaster.cfg:
   file.managed:

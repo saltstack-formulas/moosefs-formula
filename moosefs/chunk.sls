@@ -37,7 +37,7 @@ Install_Chunk:
     - group: root
     - mode: 755
 
-Start_Chunk:
+Run_mfschunkserver:
   service:
     - running
     - name: mfschunkserver
@@ -73,4 +73,3 @@ Start_Chunk:
       - user
       - group
 {% endfor %}
-
