@@ -38,8 +38,7 @@ Install_Metalogger:
     - mode: 755
 
 Run_mfsmetalogger:
-  service:
-    - running
+  service.running:
     - name: mfsmetalogger
     - enable: True
     - require:

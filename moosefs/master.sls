@@ -38,8 +38,7 @@ Install_Master:
     - mode: 755
 
 Run_mfsmaster:
-  service:
-    - running
+  service.running:
     - name: mfsmaster
     - enable: True
     - require:
@@ -64,8 +63,7 @@ Run_mfsmaster:
     - mode: 755
 
 Run_mfscgiserv:
-  service:
-    - running
+  service.running:
     - name: mfscgiserv
     - enable: True
     - require:
