@@ -38,8 +38,7 @@ Install_Chunk:
     - mode: 755
 
 Run_mfschunkserver:
-  service:
-    - running
+  service.running:
     - name: mfschunkserver
     - enable: True
     - watch:
