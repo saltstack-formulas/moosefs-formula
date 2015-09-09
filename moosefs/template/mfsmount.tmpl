@@ -1,6 +1,6 @@
 # Managed by saltstack
 
-{%- for keyword, argument in pillar.get('mfsmount_config').iteritems() %}
+{%- for keyword, argument in pillar.get('mfsmount_config').items() %}
         {%- if argument is none %}
 	{%- elif keyword is sameas "mfscachemode" %}
 		{%- if argument is sameas true %}
