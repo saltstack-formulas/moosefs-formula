@@ -1,6 +1,6 @@
 # Managed by saltstack
 
-{%- for keyword, argument in pillar.get('mfschunkserver_config', {}).iteritems() %}
+{%- for keyword, argument in pillar.get('mfschunkserver_config', {}).items() %}
         {%- if argument is none %}
         {%- elif argument is string or argument is number %}
 {{ keyword }} = {{ argument }}
