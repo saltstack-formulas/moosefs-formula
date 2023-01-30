@@ -1,0 +1,200 @@
+# yamllint disable rule:indentation rule:line-length
+# Debian-11
+---
+values:
+  cgi:
+    enabled: false
+    pkg:
+      name: moosefs-cgi
+  cgiserv:
+    default:
+      bind_host: localhost
+      bind_port: '9425'
+      daemon_opts: null
+      mfscgiserv_group: nogroup
+      mfscgiserv_user: nobody
+      root_path: /usr/share/moosefs-cgi
+    enabled: true
+    files:
+      moosefs-cgiserv: /etc/default/moosefs-cgiserv
+    pkg:
+      name: moosefs-cgiserv
+    service:
+      enabled: false
+      name: moosefs-cgiserv
+  chunkserver:
+    auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+    default:
+      allow_starting_with_invalid_disks: '0'
+      auth_code: mfspassword
+      bind_host: '*'
+      chunks_per_register_packet: '10000'
+      csserv_listen_host: '*'
+      csserv_listen_port: '9422'
+      data_path: /var/lib/mfs
+      disable_oom_killer: '1'
+      file_umask: '027'
+      hdd_conf_filename: /etc/mfs/mfshdd.cfg
+      hdd_error_tolerance_count: '2'
+      hdd_error_tolerance_period: '600'
+      hdd_fadvise_min_time: '86400'
+      hdd_fsync_before_close: '0'
+      hdd_high_speed_rebalance_limit: '0'
+      hdd_keep_duplicates_hours: '168'
+      hdd_leave_space_default: 256MiB
+      hdd_min_test_interval: '86400'
+      hdd_rebalance_utilization: '20'
+      hdd_rr_chunk_count: '10000'
+      hdd_sparsify_on_write: '1'
+      hdd_test_speed: '1.0'
+      labels: ''
+      limit_glibc_malloc_arenas: '4'
+      lock_memory: '0'
+      master_host: mfsmaster
+      master_port: '9420'
+      master_reconnection_delay: '5'
+      master_timeout: '0'
+      nice_level: '-19'
+      syslog_ident: mfschunkserver
+      workers_max: '250'
+      workers_max_idle: '40'
+      working_group: mfs
+      working_user: mfs
+    enabled: true
+    files:
+      mfschunkserver: /etc/mfs/mfschunkserver.cfg
+      mfshdd: /etc/mfs/mfshdd.cfg
+    hdds:
+      /srv/moosefs-storage: {}
+    master_host: moosefs.example.net
+    pkg:
+      name: moosefs-chunkserver
+    service:
+      enabled: true
+      name: moosefs-chunkserver
+  cli:
+    enabled: true
+    pkg:
+      name: moosefs-cli
+  client:
+    enabled: true
+    mounts:
+      /mnt:
+        device: 127.0.0.1:/
+        group: nogroup
+        user: man
+    pkg:
+      name: moosefs-client
+  map_jinja:
+    sources:
+    - Y:G@osarch
+    - Y:G@os_family
+    - Y:G@os
+    - Y:G@osfinger
+    - C@moosefs:lookup
+    - C@moosefs
+    - Y:G@id
+  master:
+    auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+    default:
+      acceptable_percentage_difference: '1.0'
+      atime_mode: '0'
+      auth_code: mfspassword
+      back_logs: '50'
+      back_meta_keep_previous: '1'
+      changelog_preserve_seconds: '1800'
+      changelog_save_mode: '0'
+      chunks_hard_del_limit: '25'
+      chunks_loop_max_cps: '100000'
+      chunks_loop_min_time: '300'
+      chunks_read_rep_limit: 10,5,2,5
+      chunks_soft_del_limit: '10'
+      chunks_unique_mode: '0'
+      chunks_write_rep_limit: 2,1,1,4
+      creations_respect_topology: '0'
+      cs_days_to_remove_unused: '7'
+      cs_heavy_load_grace_period: '900'
+      cs_heavy_load_ratio_threshold: '3.0'
+      cs_heavy_load_threshold: '150'
+      cs_maintenance_mode_timeout: '0'
+      cs_temp_maintenance_mode_timeout: '1800'
+      data_path: /var/lib/mfs
+      disable_oom_killer: '1'
+      exports_filename: /etc/mfs/mfsexports.cfg
+      file_umask: '027'
+      inode_reuse_delay: '86400'
+      limit_glibc_malloc_arenas: '4'
+      lock_memory: '0'
+      matocl_listen_host: '*'
+      matocl_listen_port: '9421'
+      matocs_listen_host: '*'
+      matocs_listen_port: '9420'
+      matocs_timeout: '10'
+      matoml_listen_host: '*'
+      matoml_listen_port: '9419'
+      max_allowed_hard_links: '32767'
+      metadata_save_freq: '1'
+      missing_log_capacity: '100000'
+      nice_level: '-19'
+      priority_queues_length: '1000000'
+      quota_default_grace_period: '604800'
+      remap_bits: '24'
+      remap_destination_ip_class: 10.0.0.0
+      remap_source_ip_class: 192.168.1.0
+      replications_delay_init: '60'
+      replications_respect_topology: '0'
+      reserve_space: '0'
+      session_sustain_time: '86400'
+      syslog_ident: mfsmaster
+      topology_filename: /etc/mfs/mfstopology.cfg
+      working_group: mfs
+      working_user: mfs
+    enabled: true
+    exports:
+      /:
+        allow: 127.0.0.1
+        comment: Access of the Mfs root
+        options: rw,maproot=0
+    files:
+      metadata: /var/lib/mfs/metadata.mfs
+      mfsexports: /etc/mfs/mfsexports.cfg
+      mfsmaster: /etc/mfs/mfsmaster.cfg
+      mfstopology: /etc/mfs/mfstopology.cfg
+      moosefs-master-default: /etc/default/moosefs-master
+    pkg:
+      name: moosefs-master
+    service:
+      enabled: true
+      name: moosefs-master
+  metalogger:
+    default:
+      back_logs: '50'
+      back_meta_keep_previous: '3'
+      bind_host: '*'
+      data_path: /var/lib/mfs
+      disable_oom_killer: '1'
+      file_umask: '027'
+      limit_glibc_malloc_arenas: '4'
+      lock_memory: '0'
+      master_host: mfsmaster
+      master_port: '9419'
+      master_reconnection_delay: '5'
+      master_timeout: '10'
+      meta_download_freq: '24'
+      nice_level: '-19'
+      syslog_ident: mfsmetalogger
+      working_group: mfs
+      working_user: mfs
+    enabled: true
+    files:
+      mfsmetalogger: /etc/mfs/mfsmetalogger.cfg
+    master_host: moosefs.example.net
+    pkg:
+      name: moosefs-metalogger
+    service:
+      enabled: true
+      name: moosefs-metalogger
+  netdump:
+    enabled: false
+    pkg:
+      name: moosefs-netdump
