@@ -1,0 +1,40 @@
+{%- set boolean_map = {True: '1', False: '0'} %}
+
+{#- Convert jinja boolean for configuration file #}
+{%- macro boolean(value) %}
+{{ boolean_map[value | to_bool] }}
+{%- endmacro %}
+
+{#- Set a configuration option or commented default value #}
+{%- macro set_config(option, values={}, comment='# ', space=' ') %}
+{%-   set value = values | traverse('config:' ~ option, None) %}
+{%-   set default_value = values | traverse('default:' ~ option, None) %}
+{%-   set space = space | default('', boolean=True) %}
+
+  {#- set configuration value or comment the default #}
+{%-   if value and value != default_value %}
+{%-     set config_line = option | upper ~ space ~ '=' ~ space ~ value %}
+{%-   elif default_value %}
+{%-     set config_line = comment ~ option | upper ~ space ~ '=' ~ space ~ default_value %}
+{%-   else -%}
+{%-     set config_line = comment ~ option | upper ~ space ~ '=' ~ space %}
+{%-   endif %}
+      {{- config_line }}
+{%- endmacro %}
+
+{# format an export entry #}
+{%- macro format_export(export, params) %}
+{%-   set comment = params.get('comment', None) %}
+{%-   set allow = params.get('allow') %}
+{%-   set options = params.get('options') %}
+{%-   if comment %}
+{{ '# ' ~ params.get('comment') }}
+{%-   endif %}
+{%-   if allow is string %}
+{{ "%-25s" | format(allow) }} {{ "%-25s" | format(export) }} {{ options }}
+{%-   elif allow is list %}
+{%-     for allow_item in allow %}
+{{ "%-25s" | format(allow_item) }} {{ "%-25s" | format(export) }} {{ options }}
+{%-     endfor %}
+{%-   endif %}
+{%- endmacro %}
