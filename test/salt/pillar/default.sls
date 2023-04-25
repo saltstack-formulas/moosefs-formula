@@ -44,6 +44,10 @@ moosefs:
   client:
     enabled: true
     config:
+      default_options:
+        - "noatime"
+        - "nodev"
+        - "nosuid"
       mounts:
         "/mnt":
           device: "127.0.0.1:/"

@@ -78,12 +78,19 @@ values:
     pkg:
       name: moosefs-cli
   client:
+    config:
+      default_options:
+      - noatime
+      - nodev
+      - nosuid
+      mounts:
+        /mnt:
+          device: 127.0.0.1:/
+          group: nogroup
+          user: man
     enabled: true
-    mounts:
-      /mnt:
-        device: 127.0.0.1:/
-        group: nogroup
-        user: man
+    files:
+      mfsmount: /etc/mfs/mfsmount.cfg
     pkg:
       name: moosefs-client
   map_jinja:
