@@ -29,4 +29,14 @@ moosefs:
 
       hdds:
         /srv/moosefs-storage: {}
+
+  client:
+    enabled: true
+
+    config:
+      mounts:
+        "/mnt":
+          device: "127.0.0.1:/"
+          user: man
+          group: nogroup
 ...

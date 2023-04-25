@@ -166,4 +166,37 @@ values:
       chunks_per_register_packet: "10000"
       csserv_listen_host: "*"
       csserv_listen_port: "9422"
+
+  client:
+    enabled: false
+    pkg:
+      name: "moosefs-client"
+    files:
+      mfsmount: "/etc/mfs/mfsmount.cfg"
+
+    # yamllint disable rule:comments-indentation
+    # config:
+    #   default_options:
+    #     - "_netdev"
+    #     - "mfsdelayedinit"
+    #     - "noatime"
+    #     - "nodev"
+    #     - "nosuid"
+    #   mounts:
+    #     "/mnt":
+    #       device: mfsmaster:/mydata
+    #       mount: true
+    #       mkmnt: true
+    #       persist: true
+    #       options:
+    #         - "nosuid"
+    #         - "nodev"
+    #         - "noatime"
+    #         - "mfsdelayedinit"
+    #         - "_netdev"
+    #       user: "foo" # set owner of mount point
+    #       group: "foo" # set group of mount point
+    #       dir_mode: "700" # set directory mode of mount point
+    #       file_mode: "600" # set file mode of mount point
+    # yamllint enable rule:comments-indentation
 ...
