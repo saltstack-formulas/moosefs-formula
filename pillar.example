@@ -39,4 +39,9 @@ moosefs:
           device: "127.0.0.1:/"
           user: man
           group: nogroup
+
+  cgiserv:
+    enabled: true
+    service:
+      enabled: false
 ...

@@ -204,4 +204,23 @@ values:
     enabled: false
     pkg:
       name: "moosefs-cgi"
+
+  cgiserv:
+    enabled: false
+    pkg:
+      name: "moosefs-cgiserv"
+    service:
+      name: "moosefs-cgiserv"
+      enabled: false
+
+    files:
+      moosefs-cgiserv: "/etc/default/moosefs-cgiserv"
+
+    default:
+      mfscgiserv_user: "nobody"
+      mfscgiserv_group: "nogroup"
+      bind_host: "localhost"
+      bind_port: "9425"
+      root_path: "/usr/share/moosefs-cgi"
+      daemon_opts: ~
 ...

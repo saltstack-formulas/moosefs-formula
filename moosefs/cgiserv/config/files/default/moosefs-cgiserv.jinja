@@ -1,0 +1,24 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# Defaults for moosefs-cgiserv
+# mfscgiserv(8)
+#
+{%- from tplroot ~ "/libs/libconfig.jinja" import set_config %}
+
+## user to run daemon as (default: nobody)
+{{ set_config('mfscgiserv_user', values=cgiserv, space=None) }}
+
+## group to run daemon as (default: nogroup)
+{{ set_config('mfscgiserv_group', values=cgiserv, space=None) }}
+
+## local address to listen on (default: any)
+{{ set_config('bind_host', values=cgiserv, space=None) }}
+
+## port to listen on (default: 9425)
+{{ set_config('bind_port', values=cgiserv, space=None) }}
+
+## local path to use as HTTP document root (default: /usr/share/mfscgi)
+{{ set_config('root_path', values=cgiserv, space=None) }}
+
+{{ set_config('demon_opts', values=cgiserv, space=None) }}
