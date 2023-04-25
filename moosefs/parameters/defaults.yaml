@@ -108,4 +108,62 @@ values:
       master_host: "mfsmaster"
       master_port: "9419"
       master_timeout: "10"
+
+  chunkserver:
+    enabled: false
+    pkg:
+      name: "moosefs-chunkserver"
+    service:
+      name: "moosefs-chunkserver"
+      enabled: false
+    files:
+      mfschunkserver: "/etc/mfs/mfschunkserver.cfg"
+      mfshdd: "/etc/mfs/mfshdd.cfg"
+
+    # config:
+    #   hdds:
+    #     /mnt/sdb1/moosefs-storage:
+    #       size_limit: "-5GiB"
+    #       option: "*"
+    #     /mnt/sdc1/moosefs-storage: {}
+    #     /mnt/sdd1/moosefs-storage:
+    #       size_limit: false
+    #       option: false
+
+    default:
+      working_user: "mfs"
+      working_group: "mfs"
+      syslog_ident: "mfschunkserver"
+      lock_memory: "0"
+      limit_glibc_malloc_arenas: "4"
+      disable_oom_killer: "1"
+      nice_level: "-19"
+      file_umask: "027"
+      data_path: "/var/lib/mfs"
+      hdd_conf_filename: "/etc/mfs/mfshdd.cfg"
+      hdd_test_speed: "1.0"
+      hdd_min_test_interval: "86400"
+      hdd_fadvise_min_time: "86400"
+      hdd_leave_space_default: "256MiB"
+      hdd_rebalance_utilization: "20"
+      hdd_high_speed_rebalance_limit: "0"
+      hdd_error_tolerance_count: "2"
+      hdd_error_tolerance_period: "600"
+      hdd_fsync_before_close: "0"
+      hdd_sparsify_on_write: "1"
+      hdd_rr_chunk_count: "10000"
+      hdd_keep_duplicates_hours: "168"
+      allow_starting_with_invalid_disks: "0"
+      workers_max: "250"
+      workers_max_idle: "40"
+      labels: ""
+      bind_host: "*"
+      master_host: "mfsmaster"
+      master_port: "9420"
+      master_timeout: "0"
+      master_reconnection_delay: "5"
+      auth_code: "mfspassword"
+      chunks_per_register_packet: "10000"
+      csserv_listen_host: "*"
+      csserv_listen_port: "9422"
 ...

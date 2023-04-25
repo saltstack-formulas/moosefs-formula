@@ -23,7 +23,11 @@ values:
       enabled: false
       name: moosefs-cgiserv
   chunkserver:
-    auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+    config:
+      auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+      hdds:
+        /srv/moosefs-storage: {}
+      master_host: moosefs.example.net
     default:
       allow_starting_with_invalid_disks: '0'
       auth_code: mfspassword
@@ -64,9 +68,6 @@ values:
     files:
       mfschunkserver: /etc/mfs/mfschunkserver.cfg
       mfshdd: /etc/mfs/mfshdd.cfg
-    hdds:
-      /srv/moosefs-storage: {}
-    master_host: moosefs.example.net
     pkg:
       name: moosefs-chunkserver
     service:

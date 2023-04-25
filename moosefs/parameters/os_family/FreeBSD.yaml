@@ -19,4 +19,12 @@ values:
   metalogger:
     pkg:
       name: "moosefs3-metalogger"
+
+  chunkserver:
+    pkg:
+      name: "moosefs3-chunserver"
+
+  client:
+    pkg:
+      name: "moosefs3-client"
 ...
