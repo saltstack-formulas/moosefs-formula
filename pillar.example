@@ -12,4 +12,9 @@ moosefs:
     config:
       # Enfore chunkserver authentication
       auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+
+  metalogger:
+    enabled: true
+    service:
+      enabled: true
 ...

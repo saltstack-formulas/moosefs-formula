@@ -168,6 +168,8 @@ values:
       enabled: true
       name: moosefs-master
   metalogger:
+    config:
+      master_host: moosefs.example.net
     default:
       back_logs: '50'
       back_meta_keep_previous: '3'
@@ -189,7 +191,6 @@ values:
     enabled: true
     files:
       mfsmetalogger: /etc/mfs/mfsmetalogger.cfg
-    master_host: moosefs.example.net
     pkg:
       name: moosefs-metalogger
     service:

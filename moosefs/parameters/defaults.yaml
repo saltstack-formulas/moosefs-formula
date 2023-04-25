@@ -79,4 +79,33 @@ values:
       reserve_space: "0"
       max_allowed_hard_links: "32767"
       inode_reuse_delay: "86400"
+
+  metalogger:
+    enabled: false
+    pkg:
+      name: "moosefs-metalogger"
+    service:
+      name: "moosefs-metalogger"
+      enabled: false
+    files:
+      mfsmetalogger: "/etc/mfs/mfsmetalogger.cfg"
+
+    default:
+      working_user: "mfs"
+      working_group: "mfs"
+      syslog_ident: "mfsmetalogger"
+      lock_memory: "0"
+      limit_glibc_malloc_arenas: "4"
+      disable_oom_killer: "1"
+      nice_level: "-19"
+      file_umask: "027"
+      data_path: "/var/lib/mfs"
+      back_logs: "50"
+      back_meta_keep_previous: "3"
+      meta_download_freq: "24"
+      master_reconnection_delay: "5"
+      bind_host: "*"
+      master_host: "mfsmaster"
+      master_port: "9419"
+      master_timeout: "10"
 ...

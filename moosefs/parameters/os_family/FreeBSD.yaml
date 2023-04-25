@@ -15,4 +15,8 @@ values:
   master:
     pkg:
       name: "moosefs3-master"
+
+  metalogger:
+    pkg:
+      name: "moosefs3-metalogger"
 ...
