@@ -1,0 +1,7 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# Defaults for moosefs-master
+# mfsmaster(8)
+
+CFGFILE={{ master | traverse('files:mfsmaster') }}

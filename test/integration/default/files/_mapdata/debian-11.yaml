@@ -95,7 +95,13 @@ values:
     - C@moosefs
     - Y:G@id
   master:
-    auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+    config:
+      auth_code: yYyzqzZw5PvZ74pQAd8M1Uqa7PWGznlycVGTEzHDGG
+      exports:
+        /:
+          allow: 127.0.0.1
+          comment: Access of the Mfs root
+          options: rw,maproot=0
     default:
       acceptable_percentage_difference: '1.0'
       atime_mode: '0'
@@ -150,11 +156,6 @@ values:
       working_group: mfs
       working_user: mfs
     enabled: true
-    exports:
-      /:
-        allow: 127.0.0.1
-        comment: Access of the Mfs root
-        options: rw,maproot=0
     files:
       metadata: /var/lib/mfs/metadata.mfs
       mfsexports: /etc/mfs/mfsexports.cfg

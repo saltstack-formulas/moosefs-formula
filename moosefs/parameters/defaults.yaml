@@ -1,0 +1,82 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set default values.
+---
+values:
+  master:
+    enabled: false
+    pkg:
+      name: "moosefs-master"
+    service:
+      name: "moosefs-master"
+      enabled: false
+    files:
+      mfsmaster: "/etc/mfs/mfsmaster.cfg"
+      mfsexports: "/etc/mfs/mfsexports.cfg"
+      mfstopology: "/etc/mfs/mfstopology.cfg"
+      metadata: "/var/lib/mfs/metadata.mfs"
+      moosefs-master-default: "/etc/default/moosefs-master"
+
+    config:
+      exports:
+        # Master does not start without at least a single export
+        /:
+          allow: "127.0.0.1"
+          comment: "Access of the Mfs root"
+          options: "rw,maproot=0"
+
+    default:
+      working_user: "mfs"
+      working_group: "mfs"
+      syslog_ident: "mfsmaster"
+      lock_memory: "0"
+      limit_glibc_malloc_arenas: "4"
+      disable_oom_killer: "1"
+      nice_level: "-19"
+      file_umask: "027"
+      data_path: "/var/lib/mfs"
+      exports_filename: "/etc/mfs/mfsexports.cfg"
+      topology_filename: "/etc/mfs/mfstopology.cfg"
+      back_logs: "50"
+      metadata_save_freq: "1"
+      back_meta_keep_previous: "1"
+      changelog_preserve_seconds: "1800"
+      changelog_save_mode: "0"
+      missing_log_capacity: "100000"
+      matoml_listen_host: "*"
+      matoml_listen_port: "9419"
+      matocs_listen_host: "*"
+      matocs_listen_port: "9420"
+      matocs_timeout: "10"
+      auth_code: "mfspassword"
+      remap_bits: "24"
+      remap_source_ip_class: "192.168.1.0"
+      remap_destination_ip_class: "10.0.0.0"
+      replications_delay_init: "60"
+      replications_respect_topology: "0"
+      creations_respect_topology: "0"
+      chunks_unique_mode: "0"
+      chunks_loop_max_cps: "100000"
+      chunks_loop_min_time: "300"
+      chunks_soft_del_limit: "10"
+      chunks_hard_del_limit: "25"
+      chunks_write_rep_limit: "2,1,1,4"
+      chunks_read_rep_limit: "10,5,2,5"
+      cs_heavy_load_threshold: "150"
+      cs_heavy_load_ratio_threshold: "3.0"
+      cs_heavy_load_grace_period: "900"
+      acceptable_percentage_difference: "1.0"
+      priority_queues_length: "1000000"
+      cs_maintenance_mode_timeout: "0"
+      cs_temp_maintenance_mode_timeout: "1800"
+      cs_days_to_remove_unused: "7"
+      matocl_listen_host: "*"
+      matocl_listen_port: "9421"
+      session_sustain_time: "86400"
+      quota_default_grace_period: "604800"
+      atime_mode: "0"
+      reserve_space: "0"
+      max_allowed_hard_links: "32767"
+      inode_reuse_delay: "86400"
+...
