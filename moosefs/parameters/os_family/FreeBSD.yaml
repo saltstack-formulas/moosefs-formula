@@ -27,4 +27,8 @@ values:
   client:
     pkg:
       name: "moosefs3-client"
+
+  cgi:
+    pkg:
+      name: "moosefs3-cgi"
 ...

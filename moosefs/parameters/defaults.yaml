@@ -199,4 +199,9 @@ values:
     #       dir_mode: "700" # set directory mode of mount point
     #       file_mode: "600" # set file mode of mount point
     # yamllint enable rule:comments-indentation
+
+  cgi:
+    enabled: false
+    pkg:
+      name: "moosefs-cgi"
 ...
