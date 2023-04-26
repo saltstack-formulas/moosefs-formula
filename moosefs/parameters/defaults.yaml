@@ -223,4 +223,9 @@ values:
       bind_port: "9425"
       root_path: "/usr/share/moosefs-cgi"
       daemon_opts: ~
+
+  cli:
+    enabled: false
+    pkg:
+      name: "moosefs-cli"
 ...

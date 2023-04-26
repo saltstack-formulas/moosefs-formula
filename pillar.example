@@ -44,4 +44,7 @@ moosefs:
     enabled: true
     service:
       enabled: false
+
+  cli:
+    enabled: true
 ...

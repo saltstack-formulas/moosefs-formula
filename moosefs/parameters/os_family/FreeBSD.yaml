@@ -35,4 +35,8 @@ values:
   cgiserv:
     pkg:
       name: "moosefs3-cgiserv"
+
+  cli:
+    pkg:
+      name: "moosefs3-cli"
 ...
