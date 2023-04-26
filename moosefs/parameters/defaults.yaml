@@ -228,4 +228,9 @@ values:
     enabled: false
     pkg:
       name: "moosefs-cli"
+
+  netdump:
+    enabled: false
+    pkg:
+      name: "moosefs-netdump"
 ...

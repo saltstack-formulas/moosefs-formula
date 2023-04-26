@@ -39,4 +39,8 @@ values:
   cli:
     pkg:
       name: "moosefs3-cli"
+
+  netdump:
+    pkg:
+      name: "moosefs3-netdump"
 ...
