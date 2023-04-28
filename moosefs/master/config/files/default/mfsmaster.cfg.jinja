@@ -1,0 +1,225 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# mfsmaster.cfg(5)
+{%- from tplroot ~ "/libs/libconfig.jinja" import set_config %}
+
+###############################################
+# RUNTIME OPTIONS                             #
+###############################################
+
+# user to run daemon as (default is mfs)
+{{ set_config('working_user', values=master) }}
+
+# group to run daemon as (optional - if empty then default user group will be used)
+{{ set_config('working_group', values=master) }}
+
+# name of process to place in syslog messages (default is mfsmaster)
+{{ set_config('syslog_ident', values=master) }}
+
+# whether to perform mlockall() to avoid swapping out mfsmaster process (default is 0, i.e. no)
+{{ set_config('lock_memory', values=master) }}
+
+# Linux only: limit malloc arenas to given value - prevents server from using huge amount of virtual memory (default is 4)
+{{ set_config('limit_glibc_malloc_arenas', values=master) }}
+
+# Linux only: disable out of memory killer (default is 1)
+{{ set_config('disable_oom_killer', values=master) }}
+
+# nice level to run daemon with (default is -19; note: process must be started as root to increase priority, if setting of priority fails, process retains the nice level it started with)
+{{ set_config('nice_level', values=master) }}
+
+# set default umask for group and others (user has always 0, default is 027 - block write for group and block all for others)
+{{ set_config('file_umask', values=master) }}
+
+# where to store daemon lock file (default is /var/lib/mfs)
+{{ set_config('data_path', values=master) }}
+
+# alternate location/name of mfsexports.cfg file (default is /etc/mfs/mfsexports.cfg)
+{{ set_config('exports_filename', values=master) }}
+
+# alternate location/name of mfstopology.cfg file (default is /etc/mfs/mfstopology.cfg)
+{{ set_config('topology_filename', values=master) }}
+
+# number of metadata change log files (default is 50)
+{{ set_config('back_logs', values=master) }}
+
+# how often master will store metadata (hours - default is 1)
+{{ set_config('metadata_save_freq', values=master) }}
+
+
+# number of previous metadata files to be kept (default is 1)
+{{ set_config('back_meta_keep_previous', values=master) }}
+
+# how many seconds of change logs have to be preserved in memory (default is 1800; this sets the minimum, actual number may be a bit bigger 
+# due to logs being kept in 5k blocks; zero disables extra logs storage)
+{{ set_config('changelog_preserve_seconds', values=master) }}
+
+# Changelog save mode. There are three modes of writing changelogs:
+# 0 - write in background by different process (less safe, but doesn't make master stop in case of heavy hdd load)
+# 1 - write in foreground without syncing data (master waits for every changelog to be saved to hdd, but without syncing - a little more safe than the background option, but may cause master to stop and wait for flushing hdd buffers)
+# 2 - write in foreground with fsync after each write (very safe, but may make your master very slow unless you have very sophisticated hardware)
+{{ set_config('changelog_save_mode', values=master) }}
+
+# how many missing chunks will be stored in master (up to 100*MISSING_LOG_CAPACITY bytes of memory will be allocated)
+{{ set_config('missing_log_capacity', values=master) }}
+
+
+###############################################
+# COMMAND CONNECTION OPTIONS                  #
+###############################################
+
+# IP address to listen on for metalogger, masters and supervisors connections (* means any)
+{{ set_config('matoml_listen_host', values=master) }}
+
+# port to listen on for metalogger, masters and supervisors connections (default is 9419)
+{{ set_config('matoml_listen_port', values=master) }}
+
+
+###############################################
+# CHUNKSERVER CONNECTION OPTIONS              #
+###############################################
+
+# IP address to listen on for chunkservers connections (* means any)
+{{ set_config('matocs_listen_host', values=master) }}
+
+# port to listen on for chunkserver connections (default is 9420)
+{{ set_config('matocs_listen_port', values=master) }}
+
+# default timeout in seconds for master-chunkserver connection (default is 10)
+{{ set_config('matocs_timeout', values=master) }}
+
+# Optional authentication string. When defined - then only chunkservers with the same AUTH_CODE are allowed to connect to this master. When not defined (default) - then all chunkservers are allowed.
+# If you want to switch on chunkserver authentication, then first define AUTH_CODE in all your chunkservers (and reload/restart them) then uncomment this option and reload/restart master
+# After reload currently connected chunkservers are NOT disconnected. New AUTH_CODE will be used when chunkservers will make new connection.
+{{ set_config('auth_code', values=master) }}
+
+# Optional IP class remapping. If you want to use class A for communication with master and class B for I/O (communication with chunkservers) then define class A as REMAP_SOURCE_IP_CLASS and class B as REMAP_DESTINATION_IP_CLASS.
+# You must also define REMAP_BITS which means how many of first bits of class A should be changed to bits from class B. All chunkserver IP numbers that are not in class A will stay unchanged.
+{{ set_config('remap_bits', values=master) }}
+{{ set_config('remap_source_ip_class', values=master) }}
+{{ set_config('remap_destination_ip_class', values=master) }}
+
+###############################################
+# CHUNKSERVER WORKING OPTIONS                 #
+###############################################
+
+# initial delay in seconds before starting replications (default is 60). The delay is counted from the moment the master has started accepting client connections.
+{{ set_config('replications_delay_init', values=master) }}
+
+# whether to make undergoal replications respect topology (default is 0)
+# 0 - do not respect topology
+# 1 - pick destination server at random, but then choose best source server
+# 2 - try to find destination server in the same rack as one of the existing copies and then replicate chunk locally (in the same rack)
+{{ set_config('replications_respect_topology', values=master) }}
+
+# whether new chunks should be recorded with respect to topology (default is 0)
+# 0 - do not respect topology
+# N (N>0) - first try to create new chunks on servers with topological distance LOWER than N from the client; if not possible, for example because of storage class, chunk servers being busy or lacking space, then try servers with distance greater or equal to N
+{{ set_config('creations_respect_topology', values=master) }}
+
+# avoid using same ip/rack for different chunk copies
+# 0 - ignore ip and rackid (standard behaviour)
+# 1 - avoid storing more than one copy on chunkservers using same IP number
+# 2 - avoid storing more than one copy on chunkservers using IP number from the same rack id
+{{ set_config('chunks_unique_mode', values=master) }}
+
+# Chunks loop shouldn't check more chunks per seconds than given number (default is 100000)
+{{ set_config('chunks_loop_max_cps', values=master) }}
+
+# Chunks loop shouldn't be done in less seconds than given number (default is 300)
+{{ set_config('chunks_loop_min_time', values=master) }}
+
+# Soft maximum number of chunks to delete on one chunkserver (default is 10)
+{{ set_config('chunks_soft_del_limit', values=master) }}
+
+# Hard maximum number of chunks to delete on one chunkserver (default is 25)
+{{ set_config('chunks_hard_del_limit', values=master) }}
+
+# Maximum number of chunks to replicate to one chunkserver (default is 2,1,1,4)
+# one number is equal to four same numbers separated by colons
+#  first limit is for endangered chunks (chunks with only one copy)
+#  second limit is for undergoal chunks (chunks with number of copies lower than specified goal)
+#  third limit is for rebalance between servers with space usage around arithmetic mean
+#  fourth limit is for rebalance between other servers (very low or very high space usage)
+# usually first number should be grater than or equal to second, second greater than or equal to third, and fourth greater than or equal to third ( 1st >= 2nd >= 3rd <= 4th )
+{{ set_config('chunks_write_rep_limit', values=master) }}
+
+# Maximum number of chunks to replicate from one chunkserver (default is 10,5,2,5)
+# one number is equal to four same numbers separated by colons
+# limit groups are the same as in write limit, also relations between numbers should be the same as in write limits ( 1st >= 2nd >= 3rd <= 4th )
+{{ set_config('chunks_read_rep_limit', values=master) }}
+
+# Threshold for chunkserver load (default is 150)
+{{ set_config('cs_heavy_load_threshold', values=master) }}
+
+# Threshold ratio for chunkserver load (default is 3.0, Whenever chunkserver load is higher than previously specified threshold and this ratio times higher than average load, then chunkserver is switched into 'grace' mode)
+{{ set_config('cs_heavy_load_ratio_threshold', values=master) }}
+
+# Defines how long chunkservers will remain in 'grace' mode (in seconds)
+{{ set_config('cs_heavy_load_grace_period', values=master) }}
+
+# Maximum difference between space usage of chunkservers in percentage points (default is 1.0 ; valid values: 0.1 - 10.0)
+# Deprecates: ACCEPTABLE_DIFFERENCE (ACCEPTABLE_PERCENTAGE_DIFFERENCE = ACCEPTABLE_DIFFERENCE * 100.0)
+{{ set_config('acceptable_percentage_difference', values=master) }}
+
+# Length of priority queues (for endangered, undergoal etc. chunks - chunks that should be processed first - default value is 1000000).
+{{ set_config('priority_queues_length', values=master) }}
+
+# Maximum number of seconds server can be in maintenance mode (default value is 0 - which means 'forever').
+{{ set_config('cs_maintenance_mode_timeout', values=master) }}
+
+# Maximum number of seconds server can be in "temporary" maintenance mode (server is switched to this mode whenever is stopped gracefully, after reconnection server is switched back to normal mode automatically ; default value: 1800)
+{{ set_config('cs_temp_maintenance_mode_timeout', values=master) }}
+
+# How many days unused (disconnected) chunkserver should be kept in master data structures (valid values: 0 - 365 ; 0 means indefinitely ; default value is 7)
+{{ set_config('cs_days_to_remove_unused', values=master) }}
+
+###############################################
+# CLIENTS CONNECTION OPTIONS                  #
+###############################################
+
+# IP address to listen on for client (mount) connections (* means any)
+{{ set_config('matocl_listen_host', values=master) }}
+
+# port to listen on for client (mount) connections (default is 9421)
+{{ set_config('matocl_listen_port', values=master) }}
+
+###############################################
+# CLIENTS WORKING OPTIONS                     #
+###############################################
+
+# How long to sustain a disconnected client session (in seconds; default is 86400 = 1 day)
+{{ set_config('session_sustain_time', values=master) }}
+
+###############################################
+# FILE SYSTEM OPTIONS                         #
+###############################################
+
+# Default grace period in seconds for soft quota (default is 604800 - 7 days)
+# Deprecates: QUOTA_TIME_LIMIT
+{{ set_config('quota_default_grace_period', values=master) }}
+
+# Mode of atime modification (default is 0 - always modify atime during access)
+# All modes:
+#  0 - Always modify atime for files, folders and symlinks.
+#  1 - Always modify atime but only in case of files (do not modify atime in case of folders and symlinks).
+#  2 - Modify atime only when it is lower than ctime or mtime and when current time is higher than ctime or mtime respectively, also modify atime when current atime is older than 24h. Do it for all objects during access (like "relatime" option in Linux).
+#  3 - Same as above but only in case of files. In case of folders and symlinks do not modify atime.
+#  4 - Never modify atime during access (like "noatime" option).
+{{ set_config('atime_mode', values=master) }}
+
+# Define amount of space reserved for superuser only (default is 0)
+#  #B or #    - amount defined in bytes (you can use metric prefixes - SI and IEC binary prefixes)
+#  #% or #.#% - amount defined as a percent of total space
+#  #U or #.#U - amount in multiplies of 'max bytes currently used by one of chunkservers'
+#  #C or #.#C - amount in multiplies of 'max total bytes of chunkserver - the highest capacity of one chunkserver'
+{{ set_config('reserve_space', values=master) }}
+
+# Define limit for number of hardlinks allowed for one object.
+# Minimum value is 8 (required by POSIX) and maximum value is 65000 (same as in ext4 on Linux). Default value is 32767.
+{{ set_config('max_allowed_hard_links', values=master) }}
+
+# Delay time in seconds after which inodes of deleted objects will be reused. BE AWARE if you change this value below 86400 (1 day) you MUST ensure that this value is higher than any of the following timeouts in all clients:
+# mfsattrcacheto,mfsxattrcacheto,mfsentrycacheto,mfsdirentrycacheto,mfsnegentrycacheto,mfssymlinkcacheto
+{{ set_config('inode_reuse_delay', values=master) }}

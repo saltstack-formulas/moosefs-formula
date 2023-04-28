@@ -1,0 +1,9 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# mfsexports.cfg(5)
+{%- from tplroot ~ "/libs/libconfig.jinja" import format_export %}
+
+{%- for export, params in exports.items() %}
+    {{ format_export(export, params) }}
+{%- endfor %}

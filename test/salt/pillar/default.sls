@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-#
-# A simple example where every components are installed on the same machine
 ---
 moosefs:
   master:
@@ -18,6 +16,9 @@ moosefs:
     service:
       enabled: true
 
+    config:
+      master_host: {{ salt["grains.get"]("id") }}
+
   chunkserver:
     enabled: true
     service:
@@ -30,15 +31,7 @@ moosefs:
       hdds:
         /srv/moosefs-storage: {}
 
-  client:
-    enabled: true
-
-    config:
-      mounts:
-        "/mnt":
-          device: "127.0.0.1:/"
-          user: man
-          group: nogroup
+      master_host: {{ salt["grains.get"]("id") }}
 
   cgiserv:
     enabled: true
@@ -47,4 +40,17 @@ moosefs:
 
   cli:
     enabled: true
+
+  client:
+    enabled: true
+    config:
+      default_options:
+        - "noatime"
+        - "nodev"
+        - "nosuid"
+      mounts:
+        "/mnt":
+          device: "127.0.0.1:/"
+          user: man
+          group: nogroup
 ...

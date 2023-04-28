@@ -1,0 +1,123 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# mfschunkserver.cfg(5)
+{%- from tplroot ~ "/libs/libconfig.jinja" import set_config %}
+
+###############################################
+# RUNTIME OPTIONS                             #
+###############################################
+
+# user to run daemon as (default is mfs)
+{{ set_config('working_user', values=chunkserver) }}
+
+# group to run daemon as (optional - if empty then default user group will be used)
+{{ set_config('working_group', values=chunkserver) }}
+
+# name of process to place in syslog messages (default is mfschunkserver)
+{{ set_config('syslog_ident', values=chunkserver) }}
+
+# whether to perform mlockall() to avoid swapping out mfschunkserver process (default is 0, i.e. no)
+{{ set_config('lock_memory', values=chunkserver) }}
+
+# Linux only: limit malloc arenas to given value - prevents server from using huge amount of virtual memory (default is 4)
+{{ set_config('limit_glibc_malloc_arenas', values=chunkserver) }}
+
+# Linux only: disable out of memory killer (default is 1)
+{{ set_config('disable_oom_killer', values=chunkserver) }}
+
+# nice level to run daemon with (default is -19; note: process must be started as root to increase priority, if setting of priority fails, process retains the nice level it started with)
+{{ set_config('nice_level', values=chunkserver) }}
+
+# set default umask for group and others (user has always 0, default is 027 - block write for group and block all for others)
+{{ set_config('file_umask', values=chunkserver) }}
+
+# where to store daemon lock file (default is /var/lib/mfs)
+{{ set_config('data_path', values=chunkserver) }}
+
+# alternate location/name of mfshdd.cfg file (default is /etc/mfs/mfshdd.cfg)
+{{ set_config('hdd_conf_filename', values=chunkserver) }}
+
+# Speed of background chunk tests in MB/s per disk (formally entry defined in mfshdd.cfg). Value can be given as a decimal number (default is 1.0)
+# Deprecates: HDD_TEST_FREQ (if HDD_TEST_SPEED is not defined, but there is redefined HDD_TEST_FREQ, then HDD_TEST_SPEED = 10 / HDD_TEST_FREQ)
+{{ set_config('hdd_test_speed', values=chunkserver) }}
+
+# Do not test chunk integrity when last I/O (including test) was performed less than HDD_MIN_TEST_INTERVAL seconds ago.
+{{ set_config('hdd_min_test_interval', values=chunkserver) }}
+
+# If possible use posix_fadvise(POSIX_DONTNEED) after each chunk test (but only if last I/O operation was performed more than HDD_FADVISE_MIN_TIME seconds ago). Using zero will always perform posix_fadvise (flush cache) and using negative value will never flush cache after tests. This setting is valid only for systems that support posix_fadivise.
+{{ set_config('hdd_fadvise_min_time', values=chunkserver) }}
+
+# how much space should be left unused on each hard drive (default: 256MiB)
+# number format: [0-9]*(.[0-9]*)?([kMGTPE]|[KMGTPE]i)?B?
+# examples: 0.5GB ; .5G ; 2.56GiB ; 1256M etc.
+{{ set_config('hdd_leave_space_default', values=chunkserver) }}
+
+# percent of total work time the chunkserver is allowed to spend on hdd space rebalancing
+{{ set_config('hdd_rebalance_utilization', values=chunkserver) }}
+
+# maximum simultaneous writes per disk in high speed disk rebalance (0 means use standard rebalance)
+{{ set_config('hdd_high_speed_rebalance_limit', values=chunkserver) }}
+
+# How many i/o errors (COUNT) to tolerate in given amount of seconds (PERIOD) on a single hard drive; if the number of errors exceeds this setting, the offending hard drive will be marked as damaged
+{{ set_config('hdd_error_tolerance_count', values=chunkserver) }}
+{{ set_config('hdd_error_tolerance_period', values=chunkserver) }}
+
+# enables/disables fsync before chunk closing
+{{ set_config('hdd_fsync_before_close', values=chunkserver) }}
+
+# enables/disables sparsification (skip zeros) during write
+{{ set_config('hdd_sparsify_on_write', values=chunkserver) }}
+
+# how many chunks should be created in one directory before moving to the next one (higher values are better with most OSes caching algorithms, low values lead to more even chunk distribution, default is 10000 which works best in most cases)
+{{ set_config('hdd_rr_chunk_count', values=chunkserver) }}
+
+# how many hours duplicate chunks should be kept before deleting
+{{ set_config('hdd_keep_duplicates_hours', values=chunkserver) }}
+
+# when set to one chunkserver will not abort start even when incorrect entries are found in 'mfshdd.cfg' file
+{{ set_config('allow_starting_with_invalid_disks', values=chunkserver) }}
+
+# Maximum number of active workers and maximum number of idle workers
+{{ set_config('workers_max', values=chunkserver) }}
+{{ set_config('workers_max_idle', values=chunkserver) }}
+
+###############################################
+# MASTER CONNECTION OPTIONS                   #
+##############################################
+
+# labels string (default is empty - no labels); labels should be defined as a set of letters (case insensitive) separated by ',' or ';'
+{{ set_config('labels', values=chunkserver) }}
+
+# local address to use for master connections (default is *, i.e. default local address)
+{{ set_config('bind_host', values=chunkserver) }}
+
+# MooseFS master host, IP is allowed only in single-master installations (default is mfsmaster)
+{{ set_config('master_host', values=chunkserver) }}
+
+# MooseFS master command port (default is 9420)
+{{ set_config('master_port', values=chunkserver) }}
+
+
+# timeout in seconds for master connections. Value >0 forces given timeout, but when value is 0 then CS asks master for timeout (default is 0 - ask master)
+{{ set_config('master_timeout', values=chunkserver) }}
+
+# delay in seconds before next try to reconnect to master if not connected (default is 5)
+{{ set_config('master_reconnection_delay', values=chunkserver) }}
+
+# authentication string (used only when master requires authorization)
+{{ set_config('auth_code', values=chunkserver) }}
+
+# maximum number of chunks system will try to put in a single register message (default is 10000, limits 1000-100000)
+{{ set_config('chunks_per_register_packet', values=chunkserver) }}
+
+###############################################
+# CLIENTS CONNECTION OPTIONS                  #
+###############################################
+
+# IP address to listen for client (mount) connections (* means any)
+{{ set_config('csserv_listen_host', values=chunkserver) }}
+
+# port to listen for client (mount) connections (default is 9422)
+{{ set_config('csserv_listen_port', values=chunkserver) }}
+

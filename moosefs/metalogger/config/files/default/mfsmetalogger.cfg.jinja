@@ -1,0 +1,64 @@
+# File managed by SaltStack at <{{ source }}>
+# Your changes will be overwritten.
+#
+# mfsmetalogger.cfg(5)
+{%- from tplroot ~ "/libs/libconfig.jinja" import set_config %}
+
+###############################################
+# RUNTIME OPTIONS                             #
+###############################################
+
+# user to run daemon as (default is mfs)
+{{ set_config('working_user', values=metalogger) }}
+
+# group to run daemon as (optional - if empty then default user group will be used)
+{{ set_config('working_group', values=metalogger) }}
+
+# name of process to place in syslog messages (default is mfsmetalogger)
+{{ set_config('syslog_ident', values=metalogger) }}
+
+# whether to perform mlockall() to avoid swapping out mfsmetalogger process (default is 0, i.e. no)
+{{ set_config('lock_memory', values=metalogger) }}
+
+# Linux only: limit malloc arenas to given value - prevents server from using huge amount of virtual memory (default is 4)
+{{ set_config('limit_glibc_malloc_arenas', values=metalogger) }}
+
+# Linux only: disable out of memory killer (default is 1)
+{{ set_config('disable_oom_killer', values=metalogger) }}
+
+# nice level to run daemon with (default is -19; note: process must be started as root to increase priority, if setting of priority fails, process retains the nice level it started with)
+{{ set_config('nice_level', values=metalogger) }}
+
+# set default umask for group and others (user has always 0, default is 027 - block write for group and block all for others)
+{{ set_config('file_umask', values=metalogger) }}
+
+# where to store daemon lock file (default is /var/lib/mfs)
+{{ set_config('data_path', values=metalogger) }}
+
+# number of metadata change log files (default is 50)
+{{ set_config('back_logs', values=metalogger) }}
+
+# number of previous metadata files to be kept (default is 3)
+{{ set_config('back_meta_keep_previous', values=metalogger) }}
+
+# metadata download frequency in hours (default is 24, should be at least BACK_LOGS/2)
+{{ set_config('meta_download_freq', values=metalogger) }}
+
+###############################################
+# MASTER CONNECTION OPTIONS                   #
+###############################################
+
+# delay in seconds before next try to reconnect to master if not connected (default is 5)
+{{ set_config('master_reconnection_delay', values=metalogger) }}
+
+# local address to use for connecting with master (default is *, i.e. default local address)
+{{ set_config('bind_host', values=metalogger) }}
+
+# MooseFS master host, IP is allowed only in single-master installations (default is mfsmaster)
+{{ set_config('master_host', values=metalogger) }}
+
+# MooseFS master supervisor port (default is 9419)
+{{ set_config('master_port', values=metalogger) }}
+
+# timeout in seconds for master connections (default is 10)
+{{ set_config('master_timeout', values=metalogger) }}

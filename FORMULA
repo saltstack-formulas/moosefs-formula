@@ -1,0 +1,9 @@
+name: moosefs
+os: Debian, Ubuntu, Raspbian, Arch, FreeBSD
+os_family: Debian, Arch, FreeBSD
+version: 1
+release: 1
+minimum_version: 2019.2
+summary: MooseFS formula
+description: Formula to setup and configure MooseFS
+top_level_dir: moosefs

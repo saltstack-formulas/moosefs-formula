@@ -1,23 +1,26 @@
-{% from "moosefs/map.jinja" import moosefs with context %}
+# -*- mode: salt; coding: utf-8 -*-
+# vim: ft=sls
 
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- from tplroot ~ "/libs/map.jinja" import mapdata as moosefs without context %}
 
-build_essestial:
-  pkg.installed:
-    - pkgs:
-{% for required_pkg in moosefs.required_pkgs %}
-      - {{ required_pkg }}
-{% endfor %}
+{%- set includes = [] %}
+{%- set components = [
+      "master",
+      "metalogger",
+      "chunkserver",
+      "cgi",
+      "cgiserv",
+      "client",
+      "cli",
+      "netdump",
+    ] %}
 
-mfs-group:
-  group.present:
-    - name: mfs
-    - system: True
+{%- for component in components %}
+{%-   if moosefs | traverse(component ~ ":enabled", False) %}
+{%-     do includes.append("." ~ component) %}
+{%-   endif %}
+{%- endfor %}
 
-mfs:
-  user.present:
-    - name: mfs
-    - fullname: MooseFS
-    - home: /home/mfs
-    - createhome: True
-    - groups:
-      - mfs
+include: {{ includes }}
